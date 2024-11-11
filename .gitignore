@@ -1,0 +1,3 @@
+# Ignore local development files
+.DS_Store
+.env

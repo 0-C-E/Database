@@ -1,0 +1,7 @@
+# Ignore Git files
+.git
+.gitignore
+
+# Ignore local development files
+.DS_Store
+.env
