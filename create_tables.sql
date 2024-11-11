@@ -143,14 +143,14 @@ CREATE INDEX idx_player_email ON player(email);
 CREATE INDEX idx_player_last_login ON player(last_login);
 
 -- Player-World Index
-CREATE INDEX idx_player_world_world_id (world_id);
+CREATE INDEX idx_player_world_world_id ON player_world(world_id);
 
 -- World & City Indexes
 CREATE INDEX idx_world_status ON world(STATUS);
 CREATE INDEX idx_city_owner ON city(owner_id);
 
 -- Composite index for attacker/defender queries
-INDEX idx_battle_attacker_defender (attacker_id, defender_id);
+INDEX idx_battle_attacker_defender ON battle(attacker_id, defender_id);
 
 -- Foreign Key Indexes
 CREATE INDEX idx_city_island_id ON city(island_id);
