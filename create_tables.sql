@@ -150,7 +150,7 @@ CREATE INDEX idx_world_status ON world(STATUS);
 CREATE INDEX idx_city_owner ON city(owner_id);
 
 -- Composite index for attacker/defender queries
-INDEX idx_battle_attacker_defender ON battle(attacker_id, defender_id);
+CREATE INDEX idx_battle_attacker_defender ON battle(attacker_id, defender_id);
 
 -- Foreign Key Indexes
 CREATE INDEX idx_city_island_id ON city(island_id);
