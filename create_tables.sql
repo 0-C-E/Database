@@ -2,11 +2,11 @@ CREATE TABLE IF NOT EXISTS player (
     id SERIAL PRIMARY KEY NOT NULL,
     name VARCHAR(100),
     email VARCHAR(100) UNIQUE,
-    password VARCHAR(100) NOT NULL,
+    password VARBINARY(255) NOT NULL,
     salt VARBINARY(16),
     gold INT DEFAULT 0,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    last_login TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS world (
@@ -18,10 +18,10 @@ CREATE TABLE IF NOT EXISTS world (
     unit_speed INT DEFAULT 1 NOT NULL,
     trade_speed INT DEFAULT 1 NOT NULL,
     night_bonus INT DEFAULT 0 NOT NULL,
-    BEGGINER_PROTECTION INT DEFAULT 0 NOT NULL,
+    BEGINNER_PROTECTION INT DEFAULT 0 NOT NULL,
     MORALE BOOL DEFAULT FALSE NOT NULL,
     ALLIANCE_CAP INT DEFAULT 0 NOT NULL,
-    STATUS ENUM('OPEN', 'CLOSED', 'LOCKED') DEFAULT 'OPEN' NOT NULL,
+    STATUS TINYINT DEFAULT 1 NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
 
@@ -55,12 +55,10 @@ CREATE TABLE IF NOT EXISTS city (
 CREATE TABLE IF NOT EXISTS building (
     id SERIAL PRIMARY KEY NOT NULL,
     name VARCHAR(100),
-    level INT DEFAULT 0 NOT NULL,
+    level INT DEFAULT 0 NOT NULL CHECK (level <= max_level),
     max_level INT DEFAULT 10 NOT NULL,
     city_id INT NOT NULL,
-    requirement_id INT NOT NULL,
-    FOREIGN KEY (city_id) REFERENCES city(id),
-    FOREIGN KEY (requirement_id) REFERENCES building(id)
+    FOREIGN KEY (city_id) REFERENCES city(id)
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS building_requirement (
@@ -69,9 +67,7 @@ CREATE TABLE IF NOT EXISTS building_requirement (
     silver INT DEFAULT 0 NOT NULL,
     population INT DEFAULT 0 NOT NULL,
     building_id INT NOT NULL,
-    requirement_id INT NOT NULL,
-    FOREIGN KEY (building_id) REFERENCES building(id),
-    FOREIGN KEY (requirement_id) REFERENCES building(id)
+    FOREIGN KEY (building_id) REFERENCES building(id)
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS building_prerequisite (
@@ -86,7 +82,7 @@ CREATE TABLE IF NOT EXISTS unit (
     id SERIAL PRIMARY KEY NOT NULL,
     name VARCHAR(100),
     description TEXT,
-    type ENUM('LAND', 'NAVAL') NOT NULL,
+    type TINYINT NOT NULL,
     wood_cost INT DEFAULT 0 NOT NULL,
     stone_cost INT DEFAULT 0 NOT NULL,
     silver_cost INT DEFAULT 0 NOT NULL,
@@ -129,7 +125,7 @@ CREATE TABLE IF NOT EXISTS battle_unit (
     battle_id INT NOT NULL,
     unit_id INT NOT NULL,
     quantity INT DEFAULT 0 NOT NULL,
-    side ENUM('ATTACKER', 'DEFENDER') NOT NULL,
+    side TINYINT NOT NULL,
     PRIMARY KEY (battle_id, unit_id),
     FOREIGN KEY (battle_id) REFERENCES battle(id),
     FOREIGN KEY (unit_id) REFERENCES unit(id)
@@ -143,13 +139,17 @@ ALTER TABLE city ADD CONSTRAINT unique_city_position UNIQUE (x, y, island_id);
 CREATE INDEX idx_player_email ON player(email);
 CREATE INDEX idx_player_last_login ON player(last_login);
 
+-- Player-World Index
+CREATE INDEX idx_player_world_world_id (world_id);
+
 -- World & City Indexes
 CREATE INDEX idx_world_status ON world(STATUS);
 CREATE INDEX idx_city_owner ON city(owner_id);
 
+-- Composite index for attacker/defender queries
+INDEX idx_battle_attacker_defender (attacker_id, defender_id);
+
 -- Foreign Key Indexes
-CREATE INDEX idx_player_world_player_id ON player_world(player_id);
-CREATE INDEX idx_player_world_world_id ON player_world(world_id);
 CREATE INDEX idx_city_island_id ON city(island_id);
 CREATE INDEX idx_city_owner_id ON city(owner_id);
 CREATE INDEX idx_battle_attacker_id ON battle(attacker_id);
