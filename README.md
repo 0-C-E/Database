@@ -54,7 +54,7 @@ The schema consists of the following tables:
 
 ### 3. `player_world`
 
-- Maps players to worlds they’re part of, supporting the `many-to-many` relationship between `player` and `world`.
+- Maps players to worlds they're part of, supporting the `many-to-many` relationship between `player` and `world`.
 - **Primary Key**: (`player_id`, `world_id`)
 
 ### 4. `island`
@@ -117,7 +117,7 @@ To optimize performance, several indexes are defined:
 
 This repository includes a [Docker configuration](Dockerfile) to easily build and run the MariaDB database with the schema pre-loaded.
 
-- **Schema Files**: SQL files for creating the database and tables are copied into the container (`/docker-entrypoint-initdb.d/`), where they’re automatically executed during the container’s initial run.
+- **Schema Files**: SQL files for creating the database and tables are copied into the container (`/docker-entrypoint-initdb.d/`), where they're automatically executed during the container's initial run.
 
 ## Future Development
 
