@@ -7,7 +7,7 @@ This repository contains the database schema and setup files for **0 C.E.**, an 
 - [Overview](#overview)
 - [Getting Started](#getting-started)
 - [Database Structure](#database-structure)
-- [Indices](#Indices)
+- [Indices](#indices)
 - [Running in Docker](#running-in-docker)
 - [Future Development](#future-development)
 
