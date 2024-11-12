@@ -32,8 +32,8 @@ CREATE TABLE IF NOT EXISTS player_world (
     player_id INT UNSIGNED NOT NULL,
     world_id INT UNSIGNED NOT NULL,
     PRIMARY KEY (player_id, world_id),
-    FOREIGN KEY (player_id) REFERENCES player(id),
-    FOREIGN KEY (world_id) REFERENCES world(id)
+    FOREIGN KEY (player_id) REFERENCES player (id),
+    FOREIGN KEY (world_id) REFERENCES world (id)
 ) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS island (
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS island (
     x INT NOT NULL,
     y INT NOT NULL,
     world_id INT UNSIGNED NOT NULL,
-    FOREIGN KEY (world_id) REFERENCES world(id)
+    FOREIGN KEY (world_id) REFERENCES world (id)
 ) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS city (
@@ -51,8 +51,8 @@ CREATE TABLE IF NOT EXISTS city (
     x INT NOT NULL,
     y INT NOT NULL,
     owner_id INT UNSIGNED NOT NULL,
-    FOREIGN KEY (island_id) REFERENCES island(id),
-    FOREIGN KEY (owner_id) REFERENCES player(id)
+    FOREIGN KEY (island_id) REFERENCES island (id),
+    FOREIGN KEY (owner_id) REFERENCES player (id)
 ) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS building (
@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS building (
     level INT DEFAULT 0 NOT NULL CHECK (level < =  max_level),
     max_level INT DEFAULT 10 NOT NULL,
     city_id INT UNSIGNED NOT NULL,
-    FOREIGN KEY (city_id) REFERENCES city(id)
+    FOREIGN KEY (city_id) REFERENCES city (id)
 ) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS building_requirement (
@@ -70,15 +70,15 @@ CREATE TABLE IF NOT EXISTS building_requirement (
     silver INT DEFAULT 0 NOT NULL,
     population INT DEFAULT 0 NOT NULL,
     building_id INT UNSIGNED NOT NULL,
-    FOREIGN KEY (building_id) REFERENCES building(id)
+    FOREIGN KEY (building_id) REFERENCES building (id)
 ) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS building_prerequisite (
     building_id INT UNSIGNED NOT NULL,
     prerequisite_id INT UNSIGNED NOT NULL,
     PRIMARY KEY (building_id, prerequisite_id),
-    FOREIGN KEY (building_id) REFERENCES building(id),
-    FOREIGN KEY (prerequisite_id) REFERENCES building(id)
+    FOREIGN KEY (building_id) REFERENCES building (id),
+    FOREIGN KEY (prerequisite_id) REFERENCES building (id)
 ) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS unit (
@@ -104,8 +104,8 @@ CREATE TABLE IF NOT EXISTS city_unit (
     unit_id INT UNSIGNED NOT NULL,
     quantity INT DEFAULT 0 NOT NULL,
     PRIMARY KEY (city_id, unit_id),
-    FOREIGN KEY (city_id) REFERENCES city(id),
-    FOREIGN KEY (unit_id) REFERENCES unit(id)
+    FOREIGN KEY (city_id) REFERENCES city (id),
+    FOREIGN KEY (unit_id) REFERENCES unit (id)
 ) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS battle (
@@ -118,10 +118,10 @@ CREATE TABLE IF NOT EXISTS battle (
     loot_wood INT DEFAULT 0 NOT NULL,
     loot_stone INT DEFAULT 0 NOT NULL,
     loot_silver INT DEFAULT 0 NOT NULL,
-    FOREIGN KEY (attacker_id) REFERENCES player(id),
-    FOREIGN KEY (defender_id) REFERENCES player(id),
-    FOREIGN KEY (winner_id) REFERENCES player(id),
-    FOREIGN KEY (loser_id) REFERENCES player(id)
+    FOREIGN KEY (attacker_id) REFERENCES player (id),
+    FOREIGN KEY (defender_id) REFERENCES player (id),
+    FOREIGN KEY (winner_id) REFERENCES player (id),
+    FOREIGN KEY (loser_id) REFERENCES player (id)
 ) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS battle_unit (
@@ -130,8 +130,8 @@ CREATE TABLE IF NOT EXISTS battle_unit (
     quantity INT DEFAULT 0 NOT NULL,
     side TINYINT NOT NULL,
     PRIMARY KEY (battle_id, unit_id),
-    FOREIGN KEY (battle_id) REFERENCES battle(id),
-    FOREIGN KEY (unit_id) REFERENCES unit(id)
+    FOREIGN KEY (battle_id) REFERENCES battle (id),
+    FOREIGN KEY (unit_id) REFERENCES unit (id)
 ) ENGINE = InnoDB;
 
 -- Island & City Positioning
