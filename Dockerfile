@@ -12,3 +12,7 @@ COPY create_tables.sql /docker-entrypoint-initdb.d/
 
 # Expose the default MariaDB port (3306)
 EXPOSE 3306
+
+# Add health check for the container
+HEALTHCHECK --interval=1m --timeout=10s --start-period=30s --retries=3 \
+    CMD mysqladmin ping -h localhost || exit 1
