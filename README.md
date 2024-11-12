@@ -27,7 +27,7 @@ To set up the database locally, you'll need Docker installed. Follow the steps b
    
 2. **Run the Docker Container**:
    ```bash
-   docker run -d -p 3306:3306 --name 0ce-mariadb -e MYSQL_ROOT_PASSWORD=myrootpassword 0ce-mariadb
+   docker run -d -p 3306:3306 --name 0CE_Database -e MYSQL_ROOT_PASSWORD=myrootpassword 0ce-mariadb
    ```
 
 3. **Access the Database**:
