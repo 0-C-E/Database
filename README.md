@@ -32,7 +32,7 @@ To set up the database locally, you'll need Docker installed. Follow the steps b
 
 3. **Access the Database**:
    ```bash
-   docker exec -it 0ce-mariadb mariadb -uroot -pmyrootpassword
+   docker exec -it 0CE_Database mariadb -uroot -pmyrootpassword
    ```
 
 ## Database Structure
