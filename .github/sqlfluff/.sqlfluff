@@ -1,1 +1,2 @@
---dialect mariadb
+[sqlfluff]
+dialect = mariadb
