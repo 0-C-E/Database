@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS city (
 CREATE TABLE IF NOT EXISTS building (
     building_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
     building_name VARCHAR(100),
-    building_level INT DEFAULT 0 NOT NULL CHECK (level < =  max_level),
+    building_level INT DEFAULT 0 NOT NULL CHECK (building_level < =  max_level),
     max_level INT DEFAULT 10 NOT NULL,
     city_id INT UNSIGNED NOT NULL,
     FOREIGN KEY (city_id) REFERENCES city (city_id)
