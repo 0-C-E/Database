@@ -7,7 +7,7 @@ This repository contains the database schema and setup files for **0 C.E.**, an 
 - [Overview](#overview)
 - [Getting Started](#getting-started)
 - [Database Structure](#database-structure)
-- [Indexes](#indexes)
+- [Indices](#indices)
 - [Running in Docker](#running-in-docker)
 - [Future Development](#future-development)
 
@@ -102,9 +102,9 @@ The schema consists of the following tables:
 - Stores the details of units involved in a battle on each side.
 - **Primary Key**: (`battle_id`, `unit_id`, `side`)
 
-## Indexes
+## Indices
 
-To optimize performance, several indexes are defined:
+To optimize performance, several Indices are defined:
 
 - **Player Email Index**: `idx_player_email` on `player(email)`
 - **Player Last Login Index**: `idx_player_last_login` on `player(last_login)`
@@ -115,7 +115,7 @@ To optimize performance, several indexes are defined:
 
 ## Running in Docker
 
-This repository includes a [Docker configuration](Dockerfile) to easily build and run the MariaDB database with the schema pre-loaded.
+This repository includes a [Docker configuration](Dockerfile) to easily build and run the MariaDB database with the schema preloaded.
 
 - **Schema Files**: SQL files for creating the database and tables are copied into the container (`/docker-entrypoint-initdb.d/`), where they're automatically executed during the container's initial run.
 

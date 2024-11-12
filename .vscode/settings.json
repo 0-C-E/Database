@@ -4,5 +4,10 @@
     "editor.formatOnSave": true,
     "files.insertFinalNewline": true,
     "files.trimFinalNewlines": true,
-    "files.trimTrailingWhitespace": true
+    "files.trimTrailingWhitespace": true,
+    "[sql]": {
+        "editor.rulers": [
+            100
+        ]
+    }
 }
