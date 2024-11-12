@@ -33,6 +33,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VALIDATE_ALL_CODEBASE: true
           VALIDATE_JSON_PRETTIER: false
-          SQLFLUFF_CONFIG_FILE: ./.github/sqlfluff/.sqlfluff
-        with:
-          working-directory: ./
+          SQLFLUFF_CONFIG_FILE: .github/sqlfluff/.sqlfluff
