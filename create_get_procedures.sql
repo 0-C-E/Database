@@ -44,14 +44,14 @@ END //
 CREATE OR REPLACE PROCEDURE get_all_worlds()
 BEGIN
     SELECT world_id, world_name, world_description, seed, action_speed, unit_speed, trade_speed,
-        night_bonus, beginner_protection, morale, alliance_cap, world_status, created_at
+        night_bonus, beginner_protection, morale, world_status, created_at
     FROM world;
 END //
 
 CREATE OR REPLACE PROCEDURE get_world_by_id(IN world_id INT)
 BEGIN
     SELECT world_id, world_name, world_description, seed, action_speed, unit_speed, trade_speed,
-        night_bonus, beginner_protection, morale, alliance_cap, world_status, created_at
+        night_bonus, beginner_protection, morale, world_status, created_at
     FROM world
     WHERE world_id = world_id;
 END //
