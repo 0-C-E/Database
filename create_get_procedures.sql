@@ -17,11 +17,11 @@ BEGIN
     WHERE p_player_id = player_id;
 END //
 
-CREATE OR REPLACE PROCEDURE get_player_by_name(IN player_name VARCHAR(100))
+CREATE OR REPLACE PROCEDURE get_player_by_name(IN p_player_name VARCHAR(100))
 BEGIN
     SELECT player_id, player_name, email, gold, created_at, last_login
     FROM player
-    WHERE player_name = player_name;
+    WHERE p_player_name = player_name;
 END //
 
 CREATE OR REPLACE PROCEDURE get_player_worlds(IN player_id INT)
