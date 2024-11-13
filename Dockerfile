@@ -7,13 +7,14 @@ ENV TZ=America/Montreal
 # Create a new user and group with limited privileges
 RUN groupadd -r mariadbuser && useradd -r -g mariadbuser mariadbuser
 
-# Copy SQL files from the repository root into the container
+# Copy SQL files from the repository root into the container and set permissions
 COPY create_database.sql /docker-entrypoint-initdb.d/
 COPY create_tables.sql /docker-entrypoint-initdb.d/
 COPY create_get_procedures.sql /docker-entrypoint-initdb.d/
+RUN chown -R mariadbuser:mariadbuser /docker-entrypoint-initdb.d
 
-# Adjust permissions on database init files and directories
-RUN chown -R mysql:mysql /docker-entrypoint-initdb.d
+# Set permissions for MariaDB's default directories for its own user (typically `mysql`)
+RUN chown -R mysql:mysql /var/lib/mysql /etc/mysql
 
 # Expose the default MariaDB port (3306)
 EXPOSE 3306
