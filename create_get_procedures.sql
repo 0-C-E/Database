@@ -10,11 +10,11 @@ BEGIN
     SELECT player_id, player_name, email, gold, created_at, last_login FROM player;
 END //
 
-CREATE OR REPLACE PROCEDURE get_player_by_id(IN player_id INT)
+CREATE OR REPLACE PROCEDURE get_player_by_id(IN p_player_id INT)
 BEGIN
     SELECT player_id, player_name, email, gold, created_at, last_login
     FROM player
-    WHERE id = player_id;
+    WHERE p_player_id = player_id;
 END //
 
 CREATE OR REPLACE PROCEDURE get_player_by_name(IN player_name VARCHAR(100))
