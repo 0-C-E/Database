@@ -7,36 +7,37 @@ DELIMITER //
 
 CREATE OR REPLACE PROCEDURE get_all_players()
 BEGIN
-    SELECT player_id, player_name, email, gold, created_at, last_login FROM player;
+    SELECT player_id, player_name, email, gold, created_at, last_login
+    FROM player;
 END //
 
 CREATE OR REPLACE PROCEDURE get_player_by_id(IN p_player_id INT)
 BEGIN
     SELECT player_id, player_name, email, gold, created_at, last_login
     FROM player
-    WHERE p_player_id = player_id;
+    WHERE player_id = p_player_id;
 END //
 
 CREATE OR REPLACE PROCEDURE get_player_by_name(IN p_player_name VARCHAR(100))
 BEGIN
     SELECT player_id, player_name, email, gold, created_at, last_login
     FROM player
-    WHERE p_player_name = player_name;
+    WHERE player_name = p_player_name;
 END //
 
-CREATE OR REPLACE PROCEDURE get_player_worlds(IN player_id INT)
+CREATE OR REPLACE PROCEDURE get_player_worlds(IN p_player_id INT)
 BEGIN
     SELECT w.world_id, w.world_name, w.world_description, w.created_at
     FROM world w
     JOIN player_world pw ON w.world_id = pw.world_id
-    WHERE pw.player_id = player_id;
+    WHERE pw.player_id = p_player_id;
 END //
 
-CREATE OR REPLACE PROCEDURE get_player_cities(IN player_id INT)
+CREATE OR REPLACE PROCEDURE get_player_cities(IN p_player_id INT)
 BEGIN
     SELECT c.city_id, c.city_name, c.x, c.y, c.island_id
     FROM city c
-    WHERE c.owner_id = player_id;
+    WHERE c.owner_id = p_player_id;
 END //
 
 -- World Procedures
