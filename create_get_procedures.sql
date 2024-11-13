@@ -80,11 +80,19 @@ BEGIN
     WHERE pw.world_id = world_id;
 END //
 
-CREATE OR REPLACE PROCEDURE get_world_islands(IN world_id INT)
+CREATE OR REPLACE PROCEDURE get_islands_in_world(IN world_id INT)
 BEGIN
     SELECT island_id, x, y
     FROM island
     WHERE world_id = world_id;
+END //
+
+CREATE OR REPLACE PROCEDURE get_cities_in_world(IN world_id INT)
+BEGIN
+    SELECT c.city_id, c.city_name, c.x, c.y, c.owner_id, c.island_id
+    FROM city c
+    JOIN island i ON c.island_id = i.island_id
+    WHERE i.world_id = world_id;
 END //
 
 -- Island Procedures
@@ -122,14 +130,6 @@ BEGIN
     SELECT city_id, city_name, x, y, island_id, owner_id
     FROM city
     WHERE id = city_id;
-END //
-
-CREATE OR REPLACE PROCEDURE get_cities_in_world(IN world_id INT)
-BEGIN
-    SELECT c.city_id, c.city_name, c.x, c.y, c.owner_id, c.island_id
-    FROM city c
-    JOIN island i ON c.island_id = i.island_id
-    WHERE i.world_id = world_id;
 END //
 
 -- Building Procedures
