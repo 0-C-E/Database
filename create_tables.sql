@@ -14,9 +14,9 @@ CREATE TABLE IF NOT EXISTS player (
 
 CREATE TABLE IF NOT EXISTS world (
     world_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
-    world_name VARCHAR(100),
+    world_name VARCHAR(100) UNIQUE NOT NULL,
     world_description TEXT,
-    seed INT NOT NULL,
+    seed INT,
     action_speed TINYINT UNSIGNED DEFAULT 1,
     unit_speed TINYINT UNSIGNED DEFAULT 1,
     trade_speed TINYINT UNSIGNED DEFAULT 1,
