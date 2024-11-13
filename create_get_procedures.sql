@@ -18,6 +18,12 @@ BEGIN
     WHERE player_id = p_player_id;
 END //
 
+-- This procedure is used to check if an email already exists in the database
+CREATE OR REPLACE PROCEDURE get_player_by_email(IN p_email VARCHAR(100), OUT email_exists BOOLEAN)
+BEGIN
+    SELECT EXISTS(SELECT 1 FROM player WHERE email = p_email) INTO email_exists;
+END //
+
 CREATE OR REPLACE PROCEDURE get_player_by_name(IN p_player_name VARCHAR(100))
 BEGIN
     SELECT player_id, player_name, email, gold, created_at, last_login
