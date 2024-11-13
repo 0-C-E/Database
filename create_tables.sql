@@ -17,14 +17,13 @@ CREATE TABLE IF NOT EXISTS world (
     world_name VARCHAR(100),
     world_description TEXT,
     seed INT NOT NULL,
-    action_speed TINYINT UNSIGNED DEFAULT 1 NOT NULL,
-    unit_speed TINYINT UNSIGNED DEFAULT 1 NOT NULL,
-    trade_speed TINYINT UNSIGNED DEFAULT 1 NOT NULL,
-    night_bonus INT DEFAULT 0 NOT NULL,
-    beginner_protection INT DEFAULT 0 NOT NULL,
-    morale BOOL DEFAULT FALSE NOT NULL,
-    alliance_cap INT DEFAULT 0 NOT NULL,
-    world_status TINYINT DEFAULT 1 NOT NULL,
+    action_speed TINYINT UNSIGNED DEFAULT 1,
+    unit_speed TINYINT UNSIGNED DEFAULT 1,
+    trade_speed TINYINT UNSIGNED DEFAULT 1,
+    night_bonus INT DEFAULT 0,
+    beginner_protection INT DEFAULT 0,
+    morale BOOL DEFAULT FALSE,
+    world_status TINYINT DEFAULT 2,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE = InnoDB;
 
