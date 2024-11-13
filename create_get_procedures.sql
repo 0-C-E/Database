@@ -63,7 +63,7 @@ CREATE OR REPLACE PROCEDURE get_active_worlds()
 BEGIN
     SELECT world_id, world_name, world_description, created_at
     FROM world
-    WHERE STATUS = 1;
+    WHERE world_status = 1;
 END //
 
 CREATE OR REPLACE PROCEDURE get_players_in_world(IN world_id INT)
