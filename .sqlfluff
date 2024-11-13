@@ -1,3 +1,4 @@
 [sqlfluff]
 dialect = mariadb
 max_line_length = 100
+exlude_rules = PRS
