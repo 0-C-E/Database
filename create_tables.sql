@@ -50,8 +50,10 @@ CREATE TABLE IF NOT EXISTS city (
     x INT NOT NULL,
     y INT NOT NULL,
     owner_id INT UNSIGNED NOT NULL,
+    world_id INT UNSIGNED NOT NULL,
     FOREIGN KEY (island_id) REFERENCES island (island_id),
-    FOREIGN KEY (owner_id) REFERENCES player (player_id)
+    FOREIGN KEY (owner_id) REFERENCES player (player_id),
+    FOREIGN KEY (world_id) REFERENCES world (world_id)
 ) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS building (

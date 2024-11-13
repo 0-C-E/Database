@@ -33,11 +33,13 @@ BEGIN
     WHERE pw.player_id = p_player_id;
 END //
 
-CREATE OR REPLACE PROCEDURE get_player_cities(IN p_player_id INT)
+CREATE OR REPLACE PROCEDURE get_player_cities(IN p_world_id INT, IN p_player_id INT)
 BEGIN
     SELECT c.city_id, c.city_name, c.x, c.y, c.island_id
     FROM city c
-    WHERE c.owner_id = p_player_id;
+    JOIN world w ON c.world_id = w.world_id
+    WHERE c.owner_id = p_player_id
+    AND w.world_id = p_world_id;
 END //
 
 -- World Procedures
