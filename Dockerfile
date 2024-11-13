@@ -22,3 +22,6 @@ EXPOSE 3306
 # Add health check for the container
 HEALTHCHECK --interval=1m --timeout=10s --start-period=30s --retries=3 \
     CMD mysqladmin ping -h localhost || exit 1
+
+# Switch to the limited user at the end
+USER mariadbuser
