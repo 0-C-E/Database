@@ -13,13 +13,10 @@ COPY create_tables.sql /docker-entrypoint-initdb.d/
 COPY create_get_procedures.sql /docker-entrypoint-initdb.d/
 
 # Adjust permissions on database init files and directories
-RUN chown -R mariadbuser:mariadbuser /docker-entrypoint-initdb.d
+RUN chown -R mysql:mysql /docker-entrypoint-initdb.d
 
 # Expose the default MariaDB port (3306)
 EXPOSE 3306
-
-# Switch to the new user
-USER mariadbuser
 
 # Add health check for the container
 HEALTHCHECK --interval=1m --timeout=10s --start-period=30s --retries=3 \

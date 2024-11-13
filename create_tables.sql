@@ -82,7 +82,7 @@ CREATE TABLE IF NOT EXISTS building_prerequisite (
 ) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS unit (
-    unit_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    unit_id TINYINT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
     unit_name VARCHAR(100),
     unit_description TEXT,
     unit_type TINYINT NOT NULL,
