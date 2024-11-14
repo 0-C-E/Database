@@ -132,19 +132,19 @@ BEGIN
     WHERE id = city_id;
 END //
 
+CREATE OR REPLACE PROCEDURE get_city_buildings(IN city_id INT)
+BEGIN
+    SELECT building_id, building_name, building_level, max_level
+    FROM building
+    WHERE city_id = city_id;
+END //
+
 -- Building Procedures
 
 CREATE OR REPLACE PROCEDURE get_all_buildings()
 BEGIN
     SELECT building_id, building_name, building_level, max_level, city_id
     FROM building;
-END //
-
-CREATE OR REPLACE PROCEDURE get_city_buildings(IN city_id INT)
-BEGIN
-    SELECT building_id, building_name, building_level, max_level
-    FROM building
-    WHERE city_id = city_id;
 END //
 
 CREATE OR REPLACE PROCEDURE get_building_by_id(IN building_id INT)
