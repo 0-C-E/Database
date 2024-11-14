@@ -210,7 +210,7 @@ BEGIN
     SELECT battle_id, attacker_id, defender_id, battle_time, winner_id, loser_id, loot_wood,
         loot_stone, loot_silver
     FROM battle
-    WHERE id = p_battle_id;
+    WHERE battle_id = p_battle_id;
 END //
 
 CREATE OR REPLACE PROCEDURE get_battle_units(IN p_battle_id INT)
