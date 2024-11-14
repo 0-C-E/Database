@@ -57,12 +57,12 @@ BEGIN
     FROM world;
 END //
 
-CREATE OR REPLACE PROCEDURE get_world_by_id(IN world_id INT)
+CREATE OR REPLACE PROCEDURE get_world_by_id(IN p_world_id INT)
 BEGIN
     SELECT world_id, world_name, world_description, seed, action_speed, unit_speed, trade_speed,
         night_bonus, beginner_protection, morale, world_status, created_at
     FROM world
-    WHERE world_id = world_id;
+    WHERE world_id = p_world_id;
 END //
 
 CREATE OR REPLACE PROCEDURE get_active_worlds()
@@ -72,27 +72,27 @@ BEGIN
     WHERE world_status = 1;
 END //
 
-CREATE OR REPLACE PROCEDURE get_players_in_world(IN world_id INT)
+CREATE OR REPLACE PROCEDURE get_players_in_world(IN p_world_id INT)
 BEGIN
     SELECT p.player_id, p.player_name, p.email, p.gold, p.created_at
     FROM player p
-    JOIN player_world pw ON p.player_id = pw.player_id
-    WHERE pw.world_id = world_id;
+    JOIN p_player_world pw ON p.player_id = pw.player_id
+    WHERE pw.world_id = p_world_id;
 END //
 
-CREATE OR REPLACE PROCEDURE get_islands_in_world(IN world_id INT)
+CREATE OR REPLACE PROCEDURE get_islands_in_world(IN p_world_id INT)
 BEGIN
     SELECT island_id, x, y
     FROM island
-    WHERE world_id = world_id;
+    WHERE world_id = p_world_id;
 END //
 
-CREATE OR REPLACE PROCEDURE get_cities_in_world(IN world_id INT)
+CREATE OR REPLACE PROCEDURE get_cities_in_world(IN p_world_id INT)
 BEGIN
     SELECT c.city_id, c.city_name, c.x, c.y, c.owner_id, c.island_id
     FROM city c
     JOIN island i ON c.island_id = i.island_id
-    WHERE i.world_id = world_id;
+    WHERE i.world_id = p_world_id;
 END //
 
 -- Island Procedures
@@ -103,18 +103,18 @@ BEGIN
     FROM island;
 END //
 
-CREATE OR REPLACE PROCEDURE get_island_by_id(IN island_id INT)
+CREATE OR REPLACE PROCEDURE get_island_by_id(IN p_island_id INT)
 BEGIN
     SELECT island_id, x, y, world_id
     FROM island
-    WHERE island_id = island_id;
+    WHERE island_id = p_island_id;
 END //
 
-CREATE OR REPLACE PROCEDURE get_island_cities(IN island_id INT)
+CREATE OR REPLACE PROCEDURE get_island_cities(IN p_island_id INT)
 BEGIN
     SELECT city_id, city_name, x, y, owner_id
     FROM city
-    WHERE island_id = island_id;
+    WHERE island_id = p_island_id;
 END //
 
 -- City Procedures
@@ -125,26 +125,26 @@ BEGIN
     FROM city;
 END //
 
-CREATE OR REPLACE PROCEDURE get_city_by_id(IN city_id INT)
+CREATE OR REPLACE PROCEDURE get_city_by_id(IN p_city_id INT)
 BEGIN
     SELECT city_id, city_name, x, y, island_id, owner_id
     FROM city
-    WHERE id = city_id;
+    WHERE id = p_city_id;
 END //
 
-CREATE OR REPLACE PROCEDURE get_city_buildings(IN city_id INT)
+CREATE OR REPLACE PROCEDURE get_city_buildings(IN p_city_id INT)
 BEGIN
     SELECT building_id, building_name, building_level, max_level
     FROM building
-    WHERE city_id = city_id;
+    WHERE city_id = p_city_id;
 END //
 
-CREATE OR REPLACE PROCEDURE get_city_units(IN city_id INT)
+CREATE OR REPLACE PROCEDURE get_city_units(IN p_city_id INT)
 BEGIN
     SELECT u.unit_id, u.unit_name, cu.quantity
     FROM unit u
     JOIN city_unit cu ON u.unit_id = cu.unit_id
-    WHERE cu.city_id = city_id;
+    WHERE cu.city_id = p_city_id;
 END //
 
 -- Building Procedures
@@ -155,18 +155,18 @@ BEGIN
     FROM building;
 END //
 
-CREATE OR REPLACE PROCEDURE get_building_by_id(IN building_id INT)
+CREATE OR REPLACE PROCEDURE get_building_by_id(IN p_building_id INT)
 BEGIN
     SELECT building_id, building_name, building_level, max_level, city_id
     FROM building
-    WHERE id = building_id;
+    WHERE id = p_building_id;
 END //
 
-CREATE OR REPLACE PROCEDURE get_building_prerequisites(IN building_id INT)
+CREATE OR REPLACE PROCEDURE get_building_prerequisites(IN p_building_id INT)
 BEGIN
     SELECT prerequisite_id
     FROM building_prerequisite
-    WHERE building_id = building_id;
+    WHERE building_id = p_building_id;
 END //
 
 -- Unit Procedures
@@ -179,13 +179,13 @@ BEGIN
     FROM unit;
 END //
 
-CREATE OR REPLACE PROCEDURE get_unit_by_id(IN unit_id INT)
+CREATE OR REPLACE PROCEDURE get_unit_by_id(IN p_unit_id INT)
 BEGIN
     SELECT unit_id, unit_name, unit_description, unit_type, wood_cost, stone_cost, silver_cost,
         population_cost, training_time, damage, defense_blunt, defense_distance, defense_sharp,
         speed, can_fly
     FROM unit
-    WHERE id = unit_id;
+    WHERE id = p_unit_id;
 END //
 
 -- Battle Procedures
@@ -197,36 +197,36 @@ BEGIN
     FROM battle;
 END //
 
-CREATE OR REPLACE PROCEDURE get_battle_by_id(IN battle_id INT)
+CREATE OR REPLACE PROCEDURE get_battle_by_id(IN p_battle_id INT)
 BEGIN
     SELECT battle_id, attacker_id, defender_id, battle_time, winner_id, loser_id, loot_wood,
         loot_stone, loot_silver
     FROM battle
-    WHERE id = battle_id;
+    WHERE id = p_battle_id;
 END //
 
-CREATE OR REPLACE PROCEDURE get_player_battles(IN player_id INT)
+CREATE OR REPLACE PROCEDURE get_player_battles(IN p_player_id INT)
 BEGIN
     SELECT battle_id, attacker_id, defender_id, battle_time, winner_id, loser_id, loot_wood,
         loot_stone, loot_silver
     FROM battle
-    WHERE attacker_id = player_id OR defender_id = player_id;
+    WHERE attacker_id = p_player_id OR defender_id = p_player_id;
 END //
 
-CREATE OR REPLACE PROCEDURE get_battle_units(IN battle_id INT)
+CREATE OR REPLACE PROCEDURE get_battle_units(IN p_battle_id INT)
 BEGIN
     SELECT unit_id, quantity, side
     FROM battle_unit
-    WHERE battle_id = battle_id;
+    WHERE battle_id = p_battle_id;
 END //
 
 -- Miscellaneous Procedures
 
-CREATE OR REPLACE PROCEDURE get_building_requirements(IN building_id INT)
+CREATE OR REPLACE PROCEDURE get_building_requirements(IN p_building_id INT)
 BEGIN
     SELECT required_wood, required_stone, required_silver, required_population
     FROM building_requirement
-    WHERE building_id = building_id;
+    WHERE building_id = p_building_id;
 END //
 
 DELIMITER ;
