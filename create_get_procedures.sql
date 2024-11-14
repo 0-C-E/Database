@@ -48,6 +48,14 @@ BEGIN
     AND w.world_id = p_world_id;
 END //
 
+CREATE OR REPLACE PROCEDURE get_player_battles(IN p_player_id INT)
+BEGIN
+    SELECT battle_id, attacker_id, defender_id, battle_time, winner_id, loser_id, loot_wood,
+        loot_stone, loot_silver
+    FROM battle
+    WHERE attacker_id = p_player_id OR defender_id = p_player_id;
+END //
+
 -- World Procedures
 
 CREATE OR REPLACE PROCEDURE get_all_worlds()
@@ -203,14 +211,6 @@ BEGIN
         loot_stone, loot_silver
     FROM battle
     WHERE id = p_battle_id;
-END //
-
-CREATE OR REPLACE PROCEDURE get_player_battles(IN p_player_id INT)
-BEGIN
-    SELECT battle_id, attacker_id, defender_id, battle_time, winner_id, loser_id, loot_wood,
-        loot_stone, loot_silver
-    FROM battle
-    WHERE attacker_id = p_player_id OR defender_id = p_player_id;
 END //
 
 CREATE OR REPLACE PROCEDURE get_battle_units(IN p_battle_id INT)
