@@ -39,6 +39,7 @@ CREATE TABLE IF NOT EXISTS island (
     island_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
     x INT NOT NULL,
     y INT NOT NULL,
+    slots INT DEFAULT 7 NOT NULL,
     world_id INT UNSIGNED NOT NULL,
     FOREIGN KEY (world_id) REFERENCES world (world_id)
 ) ENGINE = InnoDB;
@@ -47,11 +48,13 @@ CREATE TABLE IF NOT EXISTS city (
     city_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
     city_name VARCHAR(100),
     island_id INT UNSIGNED NOT NULL,
+    slot_number INT NOT NULL,
     owner_id INT UNSIGNED NOT NULL,
     world_id INT UNSIGNED NOT NULL,
     FOREIGN KEY (island_id) REFERENCES island (island_id),
     FOREIGN KEY (owner_id) REFERENCES player (player_id),
-    FOREIGN KEY (world_id) REFERENCES world (world_id)
+    FOREIGN KEY (world_id) REFERENCES world (world_id),
+    UNIQUE (island_id, slot_number)
 ) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS building (
@@ -132,10 +135,6 @@ CREATE TABLE IF NOT EXISTS battle_unit (
     FOREIGN KEY (battle_id) REFERENCES battle (battle_id),
     FOREIGN KEY (unit_id) REFERENCES unit (unit_id)
 ) ENGINE = InnoDB;
-
--- Island & City Positioning
-ALTER TABLE island ADD CONSTRAINT unique_island_position UNIQUE (x, y, world_id);
-ALTER TABLE city ADD CONSTRAINT unique_city_position UNIQUE (x, y, island_id);
 
 -- Player-Related Indexes
 CREATE INDEX idx_player_email ON player (email);
