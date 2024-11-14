@@ -3,10 +3,10 @@ USE 0ce;
 
 CREATE TABLE IF NOT EXISTS player (
     player_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
-    player_name VARCHAR(100),
-    email VARCHAR(100) UNIQUE,
+    player_name VARCHAR(100) UNIQUE NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
     hashed_password VARBINARY(255) NOT NULL,
-    salt VARBINARY(16),
+    salt VARBINARY(16) NOT NULL,
     gold INT DEFAULT 0,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     last_login TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -14,17 +14,16 @@ CREATE TABLE IF NOT EXISTS player (
 
 CREATE TABLE IF NOT EXISTS world (
     world_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
-    world_name VARCHAR(100),
+    world_name VARCHAR(100) UNIQUE NOT NULL,
     world_description TEXT,
-    seed INT NOT NULL,
-    action_speed INT DEFAULT 1 NOT NULL,
-    unit_speed INT DEFAULT 1 NOT NULL,
-    trade_speed INT DEFAULT 1 NOT NULL,
-    night_bonus INT DEFAULT 0 NOT NULL,
-    beginner_protection INT DEFAULT 0 NOT NULL,
-    morale BOOL DEFAULT FALSE NOT NULL,
-    alliance_cap INT DEFAULT 0 NOT NULL,
-    world_status TINYINT DEFAULT 1 NOT NULL,
+    seed INT,
+    action_speed TINYINT UNSIGNED DEFAULT 1,
+    unit_speed TINYINT UNSIGNED DEFAULT 1,
+    trade_speed TINYINT UNSIGNED DEFAULT 1,
+    night_bonus INT DEFAULT 0,
+    beginner_protection INT DEFAULT 0,
+    morale BOOL DEFAULT FALSE,
+    world_status TINYINT DEFAULT 2,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE = InnoDB;
 
@@ -51,8 +50,10 @@ CREATE TABLE IF NOT EXISTS city (
     x INT NOT NULL,
     y INT NOT NULL,
     owner_id INT UNSIGNED NOT NULL,
+    world_id INT UNSIGNED NOT NULL,
     FOREIGN KEY (island_id) REFERENCES island (island_id),
-    FOREIGN KEY (owner_id) REFERENCES player (player_id)
+    FOREIGN KEY (owner_id) REFERENCES player (player_id),
+    FOREIGN KEY (world_id) REFERENCES world (world_id)
 ) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS building (
@@ -82,7 +83,7 @@ CREATE TABLE IF NOT EXISTS building_prerequisite (
 ) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS unit (
-    unit_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    unit_id TINYINT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
     unit_name VARCHAR(100),
     unit_description TEXT,
     unit_type TINYINT NOT NULL,
@@ -91,7 +92,7 @@ CREATE TABLE IF NOT EXISTS unit (
     silver_cost INT DEFAULT 0 NOT NULL,
     population_cost INT DEFAULT 0 NOT NULL,
     training_time INT DEFAULT 0 NOT NULL,
-    damage INT DEFAULT 1 NOT NULL,
+    damage INT DEFAULT 0 NOT NULL,
     defense_blunt INT DEFAULT 0 NOT NULL,
     defense_distance INT DEFAULT 0 NOT NULL,
     defense_sharp INT DEFAULT 0 NOT NULL,
@@ -101,7 +102,7 @@ CREATE TABLE IF NOT EXISTS unit (
 
 CREATE TABLE IF NOT EXISTS city_unit (
     city_id INT UNSIGNED NOT NULL,
-    unit_id INT UNSIGNED NOT NULL,
+    unit_id TINYINT UNSIGNED NOT NULL,
     quantity INT DEFAULT 0 NOT NULL,
     PRIMARY KEY (city_id, unit_id),
     FOREIGN KEY (city_id) REFERENCES city (city_id),
@@ -126,7 +127,7 @@ CREATE TABLE IF NOT EXISTS battle (
 
 CREATE TABLE IF NOT EXISTS battle_unit (
     battle_id INT UNSIGNED NOT NULL,
-    unit_id INT UNSIGNED NOT NULL,
+    unit_id TINYINT UNSIGNED NOT NULL,
     quantity INT DEFAULT 0 NOT NULL,
     side TINYINT NOT NULL,
     PRIMARY KEY (battle_id, unit_id),
