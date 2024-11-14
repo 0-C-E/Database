@@ -47,8 +47,6 @@ CREATE TABLE IF NOT EXISTS city (
     city_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
     city_name VARCHAR(100),
     island_id INT UNSIGNED NOT NULL,
-    x INT NOT NULL,
-    y INT NOT NULL,
     owner_id INT UNSIGNED NOT NULL,
     world_id INT UNSIGNED NOT NULL,
     FOREIGN KEY (island_id) REFERENCES island (island_id),

@@ -41,7 +41,7 @@ END //
 
 CREATE OR REPLACE PROCEDURE get_player_cities(IN p_world_id INT, IN p_player_id INT)
 BEGIN
-    SELECT c.city_id, c.city_name, c.x, c.y, c.island_id
+    SELECT c.city_id, c.city_name, c.island_id
     FROM city c
     JOIN world w ON c.world_id = w.world_id
     WHERE c.owner_id = p_player_id
@@ -97,7 +97,7 @@ END //
 
 CREATE OR REPLACE PROCEDURE get_cities_in_world(IN p_world_id INT)
 BEGIN
-    SELECT c.city_id, c.city_name, c.x, c.y, c.owner_id, c.island_id
+    SELECT c.city_id, c.city_name, c.owner_id, c.island_id
     FROM city c
     JOIN island i ON c.island_id = i.island_id
     WHERE i.world_id = p_world_id;
@@ -120,7 +120,7 @@ END //
 
 CREATE OR REPLACE PROCEDURE get_island_cities(IN p_island_id INT)
 BEGIN
-    SELECT city_id, city_name, x, y, owner_id
+    SELECT city_id, city_name, owner_id
     FROM city
     WHERE island_id = p_island_id;
 END //
@@ -129,13 +129,13 @@ END //
 
 CREATE OR REPLACE PROCEDURE get_all_cities()
 BEGIN
-    SELECT city_id, city_name, x, y, island_id, owner_id
+    SELECT city_id, city_name, island_id, owner_id
     FROM city;
 END //
 
 CREATE OR REPLACE PROCEDURE get_city_by_id(IN p_city_id INT)
 BEGIN
-    SELECT city_id, city_name, x, y, island_id, owner_id
+    SELECT city_id, city_name, island_id, owner_id
     FROM city
     WHERE id = p_city_id;
 END //
