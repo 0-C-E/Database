@@ -139,6 +139,14 @@ BEGIN
     WHERE city_id = city_id;
 END //
 
+CREATE OR REPLACE PROCEDURE get_city_units(IN city_id INT)
+BEGIN
+    SELECT u.unit_id, u.unit_name, cu.quantity
+    FROM unit u
+    JOIN city_unit cu ON u.unit_id = cu.unit_id
+    WHERE cu.city_id = city_id;
+END //
+
 -- Building Procedures
 
 CREATE OR REPLACE PROCEDURE get_all_buildings()
@@ -169,14 +177,6 @@ BEGIN
         population_cost, training_time, damage, defense_blunt, defense_distance, defense_sharp,
         speed, can_fly
     FROM unit;
-END //
-
-CREATE OR REPLACE PROCEDURE get_city_units(IN city_id INT)
-BEGIN
-    SELECT u.unit_id, u.unit_name, cu.quantity
-    FROM unit u
-    JOIN city_unit cu ON u.unit_id = cu.unit_id
-    WHERE cu.city_id = city_id;
 END //
 
 CREATE OR REPLACE PROCEDURE get_unit_by_id(IN unit_id INT)
