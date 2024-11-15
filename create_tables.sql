@@ -136,6 +136,9 @@ CREATE TABLE IF NOT EXISTS battle_unit (
     FOREIGN KEY (unit_id) REFERENCES unit (unit_id)
 ) ENGINE = InnoDB;
 
+-- Island & City Positioning
+ALTER TABLE island ADD CONSTRAINT unique_island_position UNIQUE (x, y, world_id);
+
 -- Player-Related Indexes
 CREATE INDEX idx_player_email ON player (email);
 CREATE INDEX idx_player_last_login ON player (last_login);
