@@ -1,3 +1,6 @@
+-- Create the database if it doesn't exist
+CREATE DATABASE IF NOT EXISTS 0ce;
+
 -- Use the database
 USE 0ce;
 

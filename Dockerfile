@@ -8,9 +8,7 @@ ENV TZ=America/Montreal
 RUN groupadd -r dbuser && useradd -r -g dbuser dbuser
 
 # Copy SQL files and set ownership
-COPY create_database.sql /docker-entrypoint-initdb.d/
-COPY create_tables.sql /docker-entrypoint-initdb.d/
-COPY create_get_procedures.sql /docker-entrypoint-initdb.d/
+COPY *.sql /docker-entrypoint-initdb.d/
 RUN chown -R dbuser:dbuser /docker-entrypoint-initdb.d
 
 # Ensure proper permissions for MariaDB directories
