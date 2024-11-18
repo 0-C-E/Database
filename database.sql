@@ -62,7 +62,7 @@ CREATE TABLE IF NOT EXISTS city (
 
 CREATE TABLE IF NOT EXISTS building (
     building_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
-    building_name VARCHAR(100) ,
+    building_name VARCHAR(100),
     building_level INT DEFAULT 0 NOT NULL,
     max_level INT DEFAULT 10 NOT NULL,
     city_id INT UNSIGNED NOT NULL,
