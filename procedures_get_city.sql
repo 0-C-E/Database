@@ -15,7 +15,7 @@ CREATE OR REPLACE PROCEDURE get_city_by_id(IN p_city_id INT)
 BEGIN
     SELECT city_id, city_name, island_id, owner_id
     FROM city
-    WHERE id = p_city_id;
+    WHERE city_id = p_city_id;
 END //
 
 CREATE OR REPLACE PROCEDURE get_city_buildings(IN p_city_id INT)
