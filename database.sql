@@ -69,21 +69,33 @@ CREATE TABLE IF NOT EXISTS building (
     FOREIGN KEY (city_id) REFERENCES city (city_id)
 ) ENGINE = InnoDB;
 
+CREATE TABLE IF NOT EXISTS city_building (
+    city_id INT UNSIGNED NOT NULL,
+    building_id INT UNSIGNED NOT NULL,
+    current_level INT DEFAULT 0 NOT NULL,
+    PRIMARY KEY (city_id, building_id),
+    FOREIGN KEY (city_id) REFERENCES city (city_id),
+    FOREIGN KEY (building_id) REFERENCES building (building_id)
+) ENGINE = InnoDB;
+
 CREATE TABLE IF NOT EXISTS building_requirement (
+    building_id INT UNSIGNED NOT NULL,
+    building_level INT DEFAULT 0 NOT NULL,
     required_wood INT DEFAULT 0 NOT NULL,
     required_stone INT DEFAULT 0 NOT NULL,
     required_silver INT DEFAULT 0 NOT NULL,
     required_population INT DEFAULT 0 NOT NULL,
-    building_id INT UNSIGNED NOT NULL,
+    PRIMARY KEY (building_id, building_level),
     FOREIGN KEY (building_id) REFERENCES building (building_id)
 ) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS building_prerequisite (
     building_id INT UNSIGNED NOT NULL,
-    prerequisite_id INT UNSIGNED NOT NULL,
-    PRIMARY KEY (building_id, prerequisite_id),
+    building_level INT NOT NULL,
+    prerequisite_building_id INT UNSIGNED NOT NULL,
+    PRIMARY KEY (building_id, building_level, prerequisite_building_id),
     FOREIGN KEY (building_id) REFERENCES building (building_id),
-    FOREIGN KEY (prerequisite_id) REFERENCES building (building_id)
+    FOREIGN KEY (prerequisite_building_id) REFERENCES building (building_id)
 ) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS unit (
