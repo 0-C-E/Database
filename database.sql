@@ -85,7 +85,7 @@ CREATE TABLE IF NOT EXISTS building_requirement (
     required_stone INT DEFAULT 0 NOT NULL,
     required_silver INT DEFAULT 0 NOT NULL,
     required_population INT DEFAULT 0 NOT NULL,
-    PRIMARY KEY (building_id, level),
+    PRIMARY KEY (building_id, building_level),
     FOREIGN KEY (building_id) REFERENCES building (building_id)
 ) ENGINE = InnoDB;
 
@@ -93,7 +93,7 @@ CREATE TABLE IF NOT EXISTS building_prerequisite (
     building_id INT UNSIGNED NOT NULL,
     building_level INT NOT NULL,
     prerequisite_building_id INT UNSIGNED NOT NULL,
-    PRIMARY KEY (building_id, level, prerequisite_building_id),
+    PRIMARY KEY (building_id, building_level, prerequisite_building_id),
     FOREIGN KEY (building_id) REFERENCES building (building_id),
     FOREIGN KEY (prerequisite_building_id) REFERENCES building (building_id)
 ) ENGINE = InnoDB;
