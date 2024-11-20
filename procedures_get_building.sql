@@ -15,7 +15,7 @@ CREATE OR REPLACE PROCEDURE get_building_by_id(IN p_building_id INT)
 BEGIN
     SELECT building_id, building_name, building_level, max_level, city_id
     FROM building
-    WHERE id = p_building_id;
+    WHERE building_id = p_building_id;
 END //
 
 CREATE OR REPLACE PROCEDURE get_building_upgrade_requirements(
